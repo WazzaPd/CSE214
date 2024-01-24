@@ -1,10 +1,11 @@
-# Stonybrook CSE 214
+# Algorithms: Abdul Bari Algorithms course / Stonybrook CSE 214
 
-## Course Descripiton
-The course covers data structures to efficiently store, organize, modify, and access data. Topics include: arrays, linked lists, stacks, queues, trees, hash tables, priority queues, and graphs. Recursive programming is heavily utilized. Fundamental sorting and searching algorithms are examined along with informal efficiency comparisons.
+## Overview
+The courses covers data structures to efficiently store, organize, modify, and access data. Topics include: arrays, linked lists, stacks, queues, trees, hash tables, priority queues, and graphs. Recursive programming is heavily utilized. Fundamental sorting and searching algorithms are examined along with informal efficiency comparisons. [Abdul Bari's Alogorithms cataloge](https://www.youtube.com/watch?v=0IAPZzGSbME&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O) and the Stony Brook Algorithms course are used in conjunction as learning material. 
 
-## Instructor
-[Prof. Pramod Ganapathi](https://www3.cs.stonybrook.edu/~pramod.ganapathi/index.html)
+## Instructor/Professor
+- [Abdul Bari](https://www.youtube.com/@abdul_bari)
+- [Prof. Pramod Ganapathi](https://www3.cs.stonybrook.edu/~pramod.ganapathi/index.html)
 
 ## Learning Outcomes
 At the end of the course, the students should have the following knowledge, skills, and wisdom:
