@@ -58,6 +58,7 @@ x <- 5*a+6*b
 One assignment
 Two multiplication
 One addition
+
 Thus f(n) = 4 unit of time
 ```
 - The statement above f(n) = 4 or f(n) = 1. It depends on how presise the analysis must be. Since the result is constant, it can be represented as <span style="text-decoration: underline;">__O(1)__</span>. 
@@ -67,9 +68,101 @@ Thus f(n) = 4 unit of time
 a    ---> 1
 b    ---> 1
 temp ---> 1
+
 Thus s(n) = 3 word
 ```
 Since the result is constant, it can be represented as <span style="text-decoration: underline;">__O(1)__</span>. 
+
+## Frequency Count Method
+Consider this algorithm:
+```
+let a = an array of size n
+Alorithm Sum(A,n) {
+    s <- 0;
+    for(i=0;i<n;i++){
+        s <- s+A[i]; 
+    }
+    return s;
+}
+```
+Using the Frequency Count Method:
+```
+s<-0 -------> 1
+i<-0 -------> 1   }
+i<n  -------> n+1 } ----> n+1 or 2n+2
+i++  -------> n   }
+s<-s+A[i] --> n
+return s ---> 1
+
+Thus f(n) = 2n + 3
+```
+Since f(n) is degree one it can be represented as <span style="text-decoration: underline;">__O(n)__</span>. 
+
+```
+A -- n
+n -- 1
+s -- 1
+i -- 1
+
+Thus S(n) = n + 3
+```
+Since S(n) is degree one it can be represented as <span style="text-decoration: underline;">__O(n)__</span>. 
+
+### Two Dimensional Array
+```
+let A and B = 2d Arrays the size of n x n
+Algorithm Add(A, B, n){         
+    for(i=0; i<n; i++){             ---------- n+1
+        for(j=0; i<n; j++){         ---------- n * n+1
+            c[i,j] = A[i,j]+B[i,j]; ---------- n * n
+        }
+    }
+}
+
+Thus f(n) = 2n^2 + 2n + 1
+```
+Since f(n) is degree two it can be represented as <span style="text-decoration: underline;">__O(n^2)__</span>. 
+```
+A --- n^2
+B --- n^2
+C --- n^2
+n --- 1
+i --- 1
+j --- 1
+
+Thus S(n) = 3n^2 + 3
+```
+Since S(n) is degree two it can be represented as <span style="text-decoration: underline;">__O(n^2)__</span>. 
+
+### Multiplication of Two Matrices
+```
+let A and B = 2d Arrays the size of n x n
+Algorithm Multiply (A, B, n) {
+    for(i =0 ; i < n; i++) {                         --- n+1
+        for (j = 0; j < n; j++) {                    --- n * (n+1)
+            c[i,j] = 0;                              --- n * n      
+            for(k = 0; k<n; k++){                    --- n * n * (n+1)
+                c[i,j] = c[i, j] + A[i,k] * B[k, j]; --- n * n * n
+            }
+        }
+    }
+}
+
+Thus f(n) = 2n^3 + 3n^2 + 2n + 1
+```
+Since f(n) is degree two it can be represented as <span style="text-decoration: underline;">__O(n^3)__</span>. 
+```
+A --- n^2
+B --- n^2
+C --- n^2
+n --- 1
+i --- 1
+j --- 1
+k --- 1
+
+Thus S(n) = 3n^2 + 4
+```
+Since S(n) is degree three it can be represented as <span style="text-decoration: underline;">__O(n^2)__</span>. 
 
 ### What is a data structure?
 - A systematic way of storing, organizing, modifying, and accessing data
