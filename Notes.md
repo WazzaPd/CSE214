@@ -30,7 +30,7 @@
 4. The set of statements is <span style="text-decoration: underline;">__Finite__</span>
 5. <span style="text-decoration: underline;">__Effectiveness__</span>
 
-##  How to Analyze an Algorithm
+#  How to Analyze an Algorithm
 ```
 Algorithm swap(a, b) {
     temp <- a;
@@ -73,7 +73,7 @@ Thus s(n) = 3 word
 ```
 Since the result is constant, it can be represented as <span style="text-decoration: underline;">__O(1)__</span>. 
 
-## Frequency Count Method
+# Frequency Count Method
 Consider this algorithm:
 ```
 let a = an array of size n
@@ -150,7 +150,7 @@ Algorithm Multiply (A, B, n) {
 
 Thus f(n) = 2n^3 + 3n^2 + 2n + 1
 ```
-Since f(n) is degree two it can be represented as <span style="text-decoration: underline;">__O(n^3)__</span>. 
+Since f(n) is degree three it can be represented as <span style="text-decoration: underline;">__O(n^3)__</span>. 
 ```
 A --- n^2
 B --- n^2
@@ -162,7 +162,18 @@ k --- 1
 
 Thus S(n) = 3n^2 + 4
 ```
-Since S(n) is degree three it can be represented as <span style="text-decoration: underline;">__O(n^2)__</span>. 
+Since S(n) is degree two it can be represented as <span style="text-decoration: underline;">__O(n^2)__</span>. 
+
+# Time Complexity
+
+- Ex 1:
+```
+for(i=0; i<n; i++) { ---n+1
+    stmt; -------------- n
+}
+__________
+O(n)
+```
 
 ### What is a data structure?
 - A systematic way of storing, organizing, modifying, and accessing data
@@ -203,7 +214,4 @@ Since S(n) is degree three it can be represented as <span style="text-decoration
 - Average-case complexity Tavg(n): Complexity for a typical/random input of size n
 
 ## Asymptotic notation
-- NEED TO WORK ON UNDERSTANDING
-
-## notations 
-- NEED TO WORK ON UNDERSTANDING
+![Asymptotic](public/asymptotic.png)
