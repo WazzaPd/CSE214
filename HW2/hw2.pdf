@@ -1,0 +1,52 @@
+1. 
+
+(i)
+code:
+
+Input: Sorted Array A[1 … n]
+Output: Int that's the value of x, if none then return -1
+for i<- 1 to n do
+    current <- i
+    find <- -(2*A[current] + 17)
+    for j<-1 to n do
+        if A[j] = find then 
+            print "there is one such value A[current]"
+            return A[j]
+    
+    print "there is no such value"
+    return -1
+
+diagram:
+
+(ii)
+
+Input: Sorted A[1 ... n]
+Output: Int that's the value of x, if none then return -1
+for i<- 1 to n do
+    current <- i
+    find <- -(2*current + 17)
+
+    low <- 1
+    high <- A.length
+    
+    while low <= high
+        mid <- (low + high)/2
+        if A[mid] = find then
+            print "there is one such value A[current]"
+            return A[current]
+        if find > A[mid] then
+            low <- mid + 1
+        else
+            high <- mid-1
+    
+    print "there is no such value"
+    return -1
+            
+        
+        
+
+(iii)
+
+Input: Sorted A[1 ... n]
+Output: None
+
