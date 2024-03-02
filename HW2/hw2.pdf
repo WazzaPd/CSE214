@@ -3,6 +3,7 @@
 (i)
 code:
 
+Function: FINDX-NAIVE()
 Input: Sorted Array A[1 … n]
 Output: Int that's the value of x, if none then return -1
 for i<- 1 to n do
@@ -19,7 +20,7 @@ for i<- 1 to n do
 diagram:
 
 (ii)
-
+Funtion: FINDX-BETTER()
 Input: Sorted A[1 ... n]
 Output: Int that's the value of x, if none then return -1
 for i<- 1 to n do
@@ -46,7 +47,251 @@ for i<- 1 to n do
         
 
 (iii)
-
+Function: FINDX-BEST()
 Input: Sorted A[1 ... n]
 Output: None
+n <- length of A
+low <- 0
+right <- n-1
+while left < right
+
+
+2. 
+Time Complexity: 
+
+O(n * n) = O(n^2)
+Nested for loop
+
+Question: Does this simple algorithm sort an array of unique
+elements?
+
+Diagram: 
+
+Answer: 
+Yes. The algorithm works by creating a sorted section in the array from the range of (1 - the current iteration ( i )). As the algorithm moves to the next iteration (i+1), the next number is sorted into the sorted section, increasing the size of the sorted section. It does this until the size of the sorted section is the size of the array itself.
+
+How it sorts:
+- Let's say that the sorted section has the size of i-1. 
+- The current index (i) houses the number to be added and sorted into the sorted section.
+- The algorithm compares if A[i] < each number in the sorted section through the use of the nested for loop.
+- Case 1: When A[i] is less than the current value, A[j], the two values will swap. Every number thereafter A[j] will swap with A[i] through further iterations (since i now houses a number that is gaurenteed smaller than the next A[j], and continues until j=i)
+- Case 2: If A[i] is not smaller than any value A[j] for jE(1, i-1), A[i] will just be designated as the largest number in the section.
+- Thus the section is sorted, A[1] being the smallest in the section and A[i] being the largest.
+
+- The cycle continues for the next iteration of i until the loop reaches termination.
+
+(Side note: any iteration of j > i is irrelevant and will never result in a swap, the code can thus be improved if we set the comparison of the nested loop to j <= i)
+
+
+Question: Does it sort an array even if there are duplicates?
+
+Diagram:
+
+Answer: Yes. 
+Reasoning is essentially the same as above, with two more cases.
+
+Case 1: j<i-1
+- This means the duplicates are not the largest numbers in the sorted section. 
+- Any duplicates when compared to each other won't swap, but the number after the A[j] duplicate will be gaurenteed to swap. 
+
+Case 2: j=i-1
+- This means the duplicates are the largest number in the sorted section
+- A[i] will not swap and doesn't need to and is designated as the largest number in the sorted section.
+
+
+3. 
+ 
+(i) 
+Time Complexity: 
+O((n^2 - n)/2) = O(n^2)
+Space Complexity:
+O(1)
+
+Diagram:
+
+Function: COUNTINVERSIONS-NONRECURSIVE()
+input: A[1 ... n]
+ouput: total number of inversions in the given array
+total <-0
+for i <- 1 to n-1 do
+    for j <- i+1 to n do
+        if A[i] > A[j] then
+            total <- total + 1
+return total
+
+(ii)
+Time Complexity:
+T(n) = T(n-1) + n + (n-1)
+T(n) = T(n-2) + (n-1) + (n-2) + n + (n-1)
+T(n) = T(n-3) + (n-2) + (n-3) + (n-1) + (n-2) + n + (n-1)
+.
+.
+.
+T(n) = T(n-k) + 2(n-k) + 2(n-k+1) + 2(n-k+2)... + 2(n-1) + n
+Assume n-k = 1
+Thus k = n-1
+
+T(n) = T(1) + 2(1) + 2(2) + 2(3)... + 2(n-1) + n
+T(n) = T(1) + 2(1) + 2(2) + 2(3)... + 2(n-1) + 2n - n
+T(n) = T(1) + 2(1+2+3+...+(n-1)+ n) - n
+T(n) = 1 + (2n(2n+1)/2) - n
+T(n) = 2n^2 + n - n + 1
+T(n) = 2n^2 +1
+T(n) = O(n^2)
+
+Space Complexity: O(1)
+S(n) = S(n-1) + n-1
+S(n) = S(n-2) + n-2 + n-1
+.
+.
+.
+S(n) = S(n-k) + n-k + n-k+1 + ... + n-2 + n-1
+Assume n-k = 1
+Thus k = n-1
+
+S(n) = S(1) + 1 + 2 + ... + n-2 + n-1
+S(n) = (n-1)(n)/2
+S(n) = (n^2 - n)/2
+S(n) = O(n^2)
+
+Diagram:
+
+Function: COUNTINVERSIONS-RECURSIVE()
+input: A[1 ... n]
+output: total number of inversions in the given array
+n = length of A
+total <- 0
+if n = 1 then
+    return 0
+else
+    for j<-2 to n do
+        if A[i] > A[j] then
+            total <- total +1
+for i <- 2 to n do
+    P[i-1] <- A[i]                                     // new array without first element
+return total + COUNTINVERSIONS-RECURSIVE(P[? ... n])
+
+4. 
+
+(i)
+Time Complexity:
+O(n)
+
+Space Complecity:
+O(n) //for creating new array P the size of n
+
+Function: PREFIXSUM-NONRECURSIVE
+input: A[1 . . . n]
+output: Prefix sum array P[1 . . . n] such that P[i] = A[1] + A[2] + A[3] + · · · + A[i]
+total <- 0
+for i <- n to 1 do              //decreasing for loop
+    total <- total + A[i]
+    P[i] <- total
+return P[1 ... n]
+
+(ii)
+Time Complexity:
+O(n)
+
+Space Complexity: 
+
+Function: PREFIXSUM-RECURSIVE
+Input: A[1 . . . n]
+Output: P[1 . . . n] such that P[i] = A[1] + A[2] + A[3] + · · · + A[i]
+n <- length of A
+if n = 1 then
+    P[1] <- A[1]
+    return P
+else
+    P <- PREFIXSUM-RECURSIVE(A[1 ... n-1])
+    nextN <- length of PREFIXSUM-RECURSIVE(A[1 ... n-1])            // PREFIXSUM-RECURSIVE is an array
+    return P.push()
+
+5.
+
+Time Complexity:
+
+Space Complexity
+
+Diagram:
+
+Function: ISVALIDSTRINGS
+Input: S[1 ... 2n]
+Output: Boolean (True for vaild or False for invalid)
+
+
+6. 
+
+(i)
+
+Time Complexity:
+T(n) = O(n)
+
+Space Complexity:
+S(n) = O(1)
+
+Diagram:
+
+Function: non-recursiveGCD()
+Input: natural numbers a and b
+Output: GCD of a and b
+Limit <- 0
+if a < b then 
+    Limit <- a
+else
+    Limit <- b
+Greatest <- 0
+for i<-1 to Limit do
+    if a%i = 0 and b%i = 0 then
+        Greatest <- i
+return Greatest
+
+(ii)
+    
+Time Complexity: O(n)
+T(n) = T(n-1) + 4
+.
+.
+.
+T(n) = T(n-k) + 4k
+Assume n-k = 1
+Thus k = n-1
+
+T(n) = T(1) + 4n - 4
+T(n) = 4n - 3
+T(n) = O(n)
+
+Space Complexity: O(n)
+S(n) = S(n-1) + 2
+.
+. 
+. 
+S(n) = S(n-k) + 2k
+Assume n-k = 1
+Thus k = n-1
+
+S(n) = S(1) + 2n -2
+S(n) = 2n - 1
+S(n) = O(n)
+
+Diagram:
+
+Function: RecursiveGCD
+Input: natural numbers a and b
+Output: GCD of a and b 
+if b = 0 or a = 0 then 
+    return 0
+else 
+    store <- 0
+    check <- 0
+    if a%b = 0 then
+        store <- b
+    if b < 0 then                       //If b is negative
+        check <- RecursiveGCD(a, b+1)
+    else                                //If b is positive
+        check <- RecursiveGCD(a, b-1)
+    if store > check then 
+        return store
+    else
+        return check
 
