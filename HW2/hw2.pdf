@@ -295,3 +295,103 @@ else
     else
         return check
 
+7.
+
+(i)
+
+Time Complexity:
+O(n^2)
+
+Pow function - O(n)
+Thus EVALUATEPOLY = O(n*n) = O(n^2)
+
+Space Complexity:
+
+O(1)
+
+Diagram:
+
+Function: pow()
+Input: x, power
+Output: x^power
+if power = 0 then 
+    return 1
+elif power = 0 then 
+    return x
+else
+    result <- x
+    for i<-2 to power do
+        result = result * x
+    return result
+
+Function: EVALUATEPOLY(A[0 ... n], x)
+Input: A[0 . . . n], x
+Output: univariate polynomial P(x)
+total <- 0
+for i<-n to 1                           //decreasing for loop
+    if i = 1 then
+        total <- total + A[i] 
+    else 
+        total <- total + (A[i] * pow(x, i-1))       //Assuming array's first index is 1 not 0
+return total
+
+(ii)
+Time complexity: O(nlogn)
+pow: O(logn)
+EVALUATEPOLY: O(n * logn) = O(nlogn)
+
+Space complexity: O(1)
+
+Function: pow
+Input: x, power
+Output: x^power
+if power = 0 then 
+    return 1
+else 
+    result <- pow(x, n/2 rounded down)
+    result <- result * result
+    if n is odd then 
+        result <- result * a 
+    return result
+
+Function: EVALUATEPOLY(A[0 ... n], x)
+Input: A[0 . . . n], x
+Output: univariate polynomial P(x)
+total <- 0
+for i<-n to 1                           //decreasing for loop
+    if i = 1 then
+        total <- total + A[i] 
+    else 
+        total <- total + (A[i] * pow(x, i-1))       //Assuming array's first index is 1 not 0
+return total
+
+(iii)
+Function: EVALUATEPOLYhelper
+Input: A[0 . . . n], x, index
+n = length of A
+if index = n then 
+    return x * A[n]
+else
+    return A[index] + x * EVALUATEPOLYhelper(A[0 . . . n], x, index+1)
+
+Function: EVALUATEPOLY
+Input: A[0 . . . n], x
+Output: univariate polynomial P(x)
+total <- (EVALUATEPOLYhelper(A[0 . . . n], x, 0))
+return total
+
+Time Complexity: O(n)
+
+EVALUATEPOLYhelper:
+T(n) = T(1) + 1
+T(n) = T(2) + 2
+.
+.
+.
+T(n) = T(n) + n
+T(n) = n + 1
+T(n) = O(n)
+
+Thus EVALUATEPOLY T(n) = O(n)
+
+Space Complexity: O(1)
