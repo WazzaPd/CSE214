@@ -368,6 +368,7 @@ return total
 (iii)
 Function: EVALUATEPOLYhelper
 Input: A[0 . . . n], x, index
+Output: univariate polynomial P(x)
 n = length of A
 if index = n then 
     return x * A[n]
@@ -395,3 +396,57 @@ T(n) = O(n)
 Thus EVALUATEPOLY T(n) = O(n)
 
 Space Complexity: O(1)
+
+8. 
+
+(i)
+
+Time Complexity: O(n^2)
+
+Space Complexity:
+
+Function: PAIRSUM
+Input: A[1 . . . n], k
+Output: P[i, j]         //(i,j)
+for i<-1 to n-1 do
+    for j<-i to n do 
+        if A[i]+A[j] = k then 
+            P[1] <- i
+            P[2] <- j
+            return P[1, 2]
+return P[]
+
+(ii) 
+
+Time Complexity: O(nlogn)
+
+Space Complexity: O(1)
+
+Function: PAIRSUM
+Input: A[1 . . . n], k
+Output: P[i, j]         //(i,j)
+for i<-1 to n-1 do
+    find <- k-A[i]
+    index <- -1                  // index of key to be found
+    if find!= A[i] then
+        index <- BINARYSEARCH(A[1 ... n], find)
+    if index != -1 then
+        p[1] = i
+        p[2] = index
+        return p[1, 2]
+return P[]
+
+(iii)
+
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+Function: PAIRSUM
+Input: A[1 . . . n], k
+Output: P[i, j]         //(i,j)
+for i<-1 to n do
+    newA[i] <- k-A[i]
+for i<-i
+
+//count freq
