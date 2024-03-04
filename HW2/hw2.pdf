@@ -175,7 +175,7 @@ for i <- n to 1 do              //decreasing for loop
     total <- total + A[i]
     P[i] <- total
 return P[1 ... n]
-
+ 
 (ii)
 Time Complexity:
 O(n)
@@ -200,15 +200,65 @@ RecursiveHelper(A[1 . . . n], P[1 ... n], 0, n)
 
 5.
 
-Time Complexity:
+Time Complexity: O(n)
 
-Space Complexity
+Space Complexity: O(n)
 
 Diagram:
+
+Stack Implementation:
+----------------------
+Stack: array of items
+Top: integer // index of top, empty stack : index = 0
+
+Function InitializeStack():
+    Top <- 0 // Initialize top index to 0 (empty stack)
+
+Procedure Push(item):
+    Top <- Top + 1 
+    Stack[Top] <- item 
+
+Procedure Pop():
+    if IsEmpty() then
+        return "Error No Items to Pop"
+    else
+        item <- Stack[Top]              // Get item at the top of the stack
+        Top <- Top - 1                  // Move top index down
+        return item
+
+Function: IsEmpty
+Input: none
+Output: boolean
+    return Top = 0                      // True if stack is empty
+
+Function: peekTop
+Input: None
+Output: Top item
+    if IsEmpty() then
+        return "Error Stack is empty"
+    else
+        return Stack[Top] // Return item at the top of the stack
+----------------------
 
 Function: ISVALIDSTRINGS
 Input: S[1 ... 2n]
 Output: Boolean (True for vaild or False for invalid)
+if A[1] = ")" then 
+    return false
+InitializeStack()
+for i<-1 to 2n do                    // Assuming size of Array S is 2n, else set limit to n
+        if A[i] = "("
+            Stack.push( A[i] )
+        else
+            if Stack.pop() = Error message then
+                return false
+            else
+                Stack.pop()
+if Stack.IsEmpty() then
+    return true
+else 
+    return false              
+
 
 
 6. 
@@ -231,11 +281,11 @@ if a < b then
     Limit <- a
 else
     Limit <- b
-Greatest <- 0
+GCD <- 0
 for i<-1 to Limit do
     if a%i = 0 and b%i = 0 then
-        Greatest <- i
-return Greatest
+        GCD <- i
+return GCD
 
 (ii)
     
