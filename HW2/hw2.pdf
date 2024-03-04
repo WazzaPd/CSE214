@@ -40,21 +40,25 @@ for i<- 1 to n do
         else
             high <- mid-1
     
-    print "there is no such value"
-    return -1
+print "there is no such value"
+return -1
             
-        
-        
-
 (iii)
 Function: FINDX-BEST()
 Input: Sorted A[1 ... n]
 Output: None
-n <- length of A
 low <- 0
 right <- n-1
-while left < right
-
+while left<right do        
+    find <- -1*((2*A[left]) + 17)
+    if A[right] = find then
+        return left 
+    elif A[right] > find then
+        right <- right - 1
+    else
+        left <- left + 1
+print "there is no such value"
+return -1
 
 2. 
 Time Complexity: 
@@ -302,39 +306,32 @@ T(n) = T(1) + 4n - 4
 T(n) = 4n - 3
 T(n) = O(n)
 
-Space Complexity: O(n)
-S(n) = S(n-1) + 2
-.
-. 
-. 
-S(n) = S(n-k) + 2k
-Assume n-k = 1
-Thus k = n-1
-
-S(n) = S(1) + 2n -2
-S(n) = 2n - 1
-S(n) = O(n)
+Space Complexity: O(1)
 
 Diagram:
+
+Function: RecursiveHelper
+Input: a, b, current, limit, GCD
+Output: GCD of a and b
+if current > limit then
+    return GCD
+else
+    if a%current = 0 and b%current = 0 then
+        GCD <- current
+    RecursiveHelper( a, b, current+1, limit, GCD)
+    
+    
 
 Function: RecursiveGCD
 Input: natural numbers a and b
 Output: GCD of a and b 
-if b = 0 or a = 0 then 
-    return 0
-else 
-    store <- 0
-    check <- 0
-    if a%b = 0 then
-        store <- b
-    if b < 0 then                       //If b is negative
-        check <- RecursiveGCD(a, b+1)
-    else                                //If b is positive
-        check <- RecursiveGCD(a, b-1)
-    if store > check then 
-        return store
-    else
-        return check
+Limit <- 0
+if a < b then 
+    Limit <- a
+else
+    Limit <- b
+GCD <- 0
+return RecursiveHelper(a, b, 1, Limit, GCD)
 
 7.
 
@@ -366,14 +363,14 @@ else
     return result
 
 Function: EVALUATEPOLY(A[0 ... n], x)
-Input: A[0 . . . n], x
+Input: A[0 . . . n], x                  //Assuming array's first index is 0 not 1
 Output: univariate polynomial P(x)
 total <- 0
-for i<-n to 1                           //decreasing for loop
-    if i = 1 then
-        total <- total + A[i] 
+for i<-n to 0                           //decreasing for loop
+    if i = 0 then
+        total <- total + A[0] 
     else 
-        total <- total + (A[i] * pow(x, i-1))       //Assuming array's first index is 1 not 0
+        total <- total + (A[i] * pow(x, i))
 return total
 
 (ii)
@@ -396,35 +393,35 @@ else
     return result
 
 Function: EVALUATEPOLY(A[0 ... n], x)
-Input: A[0 . . . n], x
+Input: A[0 . . . n], x                  //Assuming array's first index is 0 not 1
 Output: univariate polynomial P(x)
 total <- 0
-for i<-n to 1                           //decreasing for loop
-    if i = 1 then
+for i<-n to 0                           //decreasing for loop
+    if i = 0 then
         total <- total + A[i] 
     else 
-        total <- total + (A[i] * pow(x, i-1))       //Assuming array's first index is 1 not 0
+        total <- total + (A[i] * pow(x, i))       
 return total
 
 (iii)
-Function: EVALUATEPOLYhelper
+Function: Recursivehelper
 Input: A[0 . . . n], x, index
 Output: univariate polynomial P(x)
 n = length of A
 if index = n then 
     return x * A[n]
 else
-    return A[index] + x * EVALUATEPOLYhelper(A[0 . . . n], x, index+1)
+    return A[index] + x * Recursivehelper(A[0 . . . n], x, index+1)
 
 Function: EVALUATEPOLY
 Input: A[0 . . . n], x
 Output: univariate polynomial P(x)
-total <- (EVALUATEPOLYhelper(A[0 . . . n], x, 0))
+total <- (Recursivehelper(A[0 . . . n], x, 0))
 return total
 
 Time Complexity: O(n)
 
-EVALUATEPOLYhelper:
+Recursivehelper:
 T(n) = T(1) + 1
 T(n) = T(2) + 2
 .
@@ -478,6 +475,26 @@ for i<-1 to n-1 do
 return P[]
 
 (iii)
+Time Complexity: O(n)
+
+Space Complexity: O(1)
+
+Function: PAIRSUM
+Input: A[1 ... n], k
+Output: P[i, j]
+left <- 1
+right <- n
+while left < right do
+    sum <- A[left] + A[right]
+    if sum = k then
+        P[1] = left
+        p[2] = right
+        return P[1, 2]
+    elif sum > k then
+        left <- left + 1
+    else
+        right <- right - 1
+return P[]
 
 9.
 
@@ -537,7 +554,7 @@ Output: Frequency of k, -1 if k does not exist
 first <- findFirst(A[1 ... n], k)
 last <- findLast(A[1 ... n], k)
 if first != -1 then
-    return first-last
+    return (first-last)+1
 else
     return -1
 
