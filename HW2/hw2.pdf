@@ -560,3 +560,85 @@ else
 
 10.
 (i) 
+
+Stack Implementation with Queues:
+----------------------
+Queue1, Queue 2: Queues
+Top: integer // size, empty stack = 0
+
+Function InitializeStack():
+    Top <- 0 // Initialize empty stack
+
+Procedure Push(item):
+    if Queue2.isEmpty then
+        Queue1.enqueue(item)
+    else
+        Queue2.enqueue(item)
+    Top <- Top + 1 
+
+Procedure Pop():
+    if IsEmpty() then
+        return "Error No Items to Pop"
+    else
+        if Queue2.IsEmpty then
+            for i <- 1 to Top-1 do
+                add <- Queue1.dequeue
+                Queue2.enqueue( add )
+            Queue1.dequeue
+        else
+            for i <- 1 to Top-1 do
+                add <- Queue2.dequeue
+                Queue1.enqueue( add )
+            Queue2.dequeue
+        Top <- Top - 1
+
+Function: IsEmpty
+Input: none
+Output: boolean
+    return Top = 0                      // return True if stack is empty
+----------------------
+
+(ii)
+
+Queue Implementation with Stacks:
+----------------------
+Stack1, Stack2: Stacks
+Top: integer // size of Queue, empty Queue = 0
+
+Function: InitializeQueue():
+    Top <- 0 // Initialize empty Queue
+
+Function enqueue(item):
+    Stack1.push(item)
+    Top <- Top + 1
+
+Function dequeue():
+    if IsEmpty() then
+        return "Error No Items to Dequeue"
+    elif Statck2.isEmpty then
+        for i <- 1 to Top-1 do
+            add <- Stack1.pop
+            Stack2.push( add )
+        Stack1.pop
+
+        Top <- Top - 1
+        for i<- 1 to Top do
+            add <- Stack2.pop
+            Stack1.push( add )
+        Stack2.pop
+    else
+        for i <- 1 to n-1 do
+            add <- Stack2.pop
+            Stack1.push( add )
+        Stack2.pop
+        Top <- Top - 1
+        for i<- 1 to Top do
+            add <- Stack1.pop
+            Stack2.push( add )
+        Stack1.pop
+
+Function: isEmpty()
+Input: none
+Output: boolean
+    return Top = 0                      // return True if Queue is empty
+----------------------
