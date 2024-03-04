@@ -14,8 +14,8 @@ for i<- 1 to n do
             print "there is one such value A[current]"
             return A[j]
     
-    print "there is no such value"
-    return -1
+print "there is no such value"
+return -1
 
 diagram:
 
@@ -27,18 +27,9 @@ for i<- 1 to n do
     current <- i
     find <- -(2*current + 17)
 
-    low <- 1
-    high <- A.length
-    
-    while low <= high
-        mid <- (low + high)/2q
-        if A[mid] = find then
-            print "there is one such value A[current]"
-            return A[current]
-        if find > A[mid] then
-            low <- mid + 1
-        else
-            high <- mid-1
+    index = BINARYSEARCH(A[1 ... n], find)
+    if index != -1 then 
+        return index
     
 print "there is no such value"
 return -1
@@ -386,10 +377,10 @@ Output: x^power
 if power = 0 then 
     return 1
 else 
-    result <- pow(x, n/2 rounded down)
+    result <- pow(x, power/2 rounded down)
     result <- result * result
-    if n is odd then 
-        result <- result * a 
+    if power is odd then 
+        result <- result * x 
     return result
 
 Function: EVALUATEPOLY(A[0 ... n], x)

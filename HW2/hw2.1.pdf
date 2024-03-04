@@ -1,0 +1,729 @@
+1.
+(i)
+Function: FINDX-NAIVE()
+Input: Sorted Array A[1 … n]
+Output: Int that's the value of x, if none then return -1
+for i<- 1 to n do
+	current <- i
+	find <- -(2*A[current] + 17)
+	for j<-1 to n do
+    		if A[j] = find then
+        		print "there is one such value A[current]"
+        		return A[j]
+print "there is no such value"
+return -1
+
+Time Complexity:
+O(n^2)
+
+Space Complexity:
+O(1)
+Constant # of Vars
+
+Diagram:
+
+
+
+(ii)
+Function: FINDX-BETTER()
+Input: Sorted A[1 ... n]
+Output: Int that's the value of x, if none then return -1
+for i<- 1 to n do
+current <- i
+	find <- -(2*current + 17)
+
+	index = BINARYSEARCH(A[1 ... n], find)
+	if index != -1 then
+    	return index
+print "there is no such value"
+return -1
+
+Time Complexity:
+O(n*logn)
+For loop * Binary Search
+
+Space Complexity:
+O(1)
+Constant # of Vars
+
+Diagram:
+   	 
+
+(iii)
+Function: FINDX-BEST()
+Input: Sorted A[1 ... n]
+Output: Int that's the value of x, if none then return -1
+low <- 0
+right <- n-1
+while left<right do   	 
+	find <- -1*((2*A[left]) + 17)
+	if A[right] = find then
+    		return left
+	elif A[right] > find then
+    		right <- right - 1
+	else
+    		left <- left + 1
+print "there is no such value"
+return -1
+
+Time Complexity:
+O(n)
+While loop runs max n times
+
+Space Complexity:
+O(1)
+Constant # of Vars
+
+Diagram:
+
+
+
+
+
+2.
+Time Complexity:
+O(n * n) = O(n^2)
+Nested for loop
+
+Question: Does this simple algorithm sort an array of unique
+elements?
+
+Answer:
+Yes. The algorithm works by creating a sorted section in the array from the range of (1 - the current iteration ( i )). As the algorithm moves to the next iteration (i+1), the next number is sorted into the sorted section, increasing the size of the sorted section. It does this until the size of the sorted section is the size of the array itself.
+
+How it sorts:
+- Let's say that the sorted section has the size of i-1.
+- The current index (i) houses the number to be added and sorted into the sorted section.
+- The algorithm compares if A[i] < each number in the sorted section through the use of the nested for loop.
+- Case 1: When A[i] is less than the current value, A[j], the two values will swap. Every number thereafter A[j] will swap with A[i] through further iterations (since A[i] now houses a number that is guaranteed smaller than the next A[j], and continues until j=i)
+- Case 2: If A[i] is not smaller than any value A[j] for jE(1, i-1), A[i] will just be designated as the largest number in the section.
+- Thus the section is sorted, A[1] being the smallest in the section and A[i] being the largest.
+
+- The cycle continues for the next iteration of i until the loop reaches termination.
+(Side note: any iteration of j > i is irrelevant)
+
+Question: Does it sort an array even if there are duplicates?
+
+Answer: Yes.
+Reasoning is essentially the same as above, with two more cases.
+
+Case 1: The duplicates are not the largest numbers in the sorted section.
+- Any duplicates when compared to each other won't swap, but the number after the A[j] duplicate will be guaranteed to swap.
+
+Case 2: The duplicates are the largest number in the sorted section
+- A[i] will not swap and doesn't need to and is designated as the largest number in the sorted section. A[i] can either be the duplicate or a different, larger number
+
+3.
+ 
+(i)
+Function: COUNTINVERSIONS-NONRECURSIVE()
+input: A[1 ... n]
+Output: total number of inversions in the given array
+total <-0
+for i <- 1 to n-1 do
+	for j <- i+1 to n do
+    		if A[i] > A[j] then
+        			total <- total + 1
+return total
+
+Time Complexity:
+1 + 2 + 3 + … + n-1 = (n-1)(n)/2
+O((n^2 - n)/2) = O(n^2)
+
+Space Complexity:
+O(1)
+
+Diagram:
+
+
+(ii)
+Function: RecursiveHelper
+Input: A[1 ... n], index
+Output: total number of inversions starting from index in the given array
+total <- 0
+if index = n then
+	return 0
+else
+	for j<-index to n do
+    		if A[i] > A[j] then
+        			total <- total +1
+return total + COUNTINVERSIONS-RECURSIVE(A[1 ... n], index+1)
+
+Function: COUNTINVERSIONS-RECURSIVE()
+input: A[1 ... n]
+output: total number of inversions in the given array
+return RecursiveHelper(A[1...n], 0)
+
+Time Complexity:
+T(n) = T(n-1) + n
+T(n) = T(n-2) + (n-1) + n
+T(n) = T(n-3) + (n-3) + (n-2) + (n-1) + n
+… 
+T(n) = T(n-k) + n-k+1 + n-k+2 + ... + n-1 + n
+Assume n-k = 1
+Thus k = n-1
+T(n) = T(1) + 2 + 3... + n-1 + n
+T(n) = 1 + 2 + 3 + ... + n-1 + n
+T(n) = n(n+1)/2
+T(n) = (n^2 + n)/2
+T(n) = O(n^2)
+
+Space Complexity: 
+O(n)
+n amount of function calls
+
+Diagram:
+
+
+4.
+(i)
+Function: PREFIXSUM-NONRECURSIVE
+input: A[1 . . . n]
+output: Prefix sum array P[1 . . . n] such that P[i] = A[1] + A[2] + A[3] + · · · + A[i]
+total <- 0
+for i <- n to 1 do          			//decreasing for loop
+	total <- total + A[i]
+	P[i] <- total
+return P[1 ... n]
+ 
+Time Complexity:
+O(n)
+For loop
+
+Space Complexity:
+O(n) 
+Creating new array P the size of n
+
+Diagram:
+
+
+(ii)
+Function: RecursiveHelper
+Input: A[1 . . . n], P[1 ... n], total, index
+Output: P[1 . . . n] such that P[i] = A[1] + A[2] + A[3] + · · · + A[i]
+if index = 0 then        	//not to be confused with start of array
+	return P[1 ... n]
+else
+	total <- total + A[index]
+	P[index] = total
+	return RecursiveHelper(A[1 ... n], P[1 ... n], total, index-1)
+
+Function: PREFIXSUM-RECURSIVE
+input: A[1 . . . n]
+output: Prefix sum array P[1 . . . n] such that P[i] = A[1] + A[2] + A[3] + · · · + A[i]
+P[] <- empty Array size of n
+RecursiveHelper(A[1 . . . n], P[1 ... n], 0, n)
+
+Time Complexity:
+T(n) = T(n-1) +1
+… 
+T(n) = 1 + 2 + 3 + .. + n
+T(n) = O(n)
+O(n)
+
+Space Complexity:
+O(n)
+creating new array P the size of n
+		+
+n amount of function calls
+
+Diagram:
+
+
+5.
+Stack Implementation:
+----------------------
+Stack: array of items
+Top: integer // index of top, empty stack : index = 0
+
+Function InitializeStack():
+	Top <- 0 // Initialize top index to 0 (empty stack)
+
+Procedure Push(item):
+	Top <- Top + 1
+	Stack[Top] <- item
+
+Procedure Pop():
+	if IsEmpty() then
+    		return "Error No Items to Pop"
+	else
+    		item <- Stack[Top]          	// Get item at the top of the stack
+    		Top <- Top - 1              	// Move top index down
+    		return item
+
+Function: IsEmpty
+Input: none
+Output: boolean
+	return Top = 0                  	// True if stack is empty
+
+Function: peekTop
+Input: None
+Output: Top item
+	if IsEmpty() then
+    		return "Error Stack is empty"
+	else
+    		return Stack[Top] // Return item at the top of the stack
+----------------------
+
+Function: ISVALIDSTRINGS
+Input: S[1 ... 2n]
+Output: Boolean (True for vaild or False for invalid)
+if A[1] = ")" then
+	return false
+InitializeStack()
+for i<-1 to 2n do                	// Assuming size of Array S is 2n, else set limit to n
+    	if A[i] = "("
+        		Stack.push( A[i] )
+    	else
+        		if Stack.pop() = Error message then
+            		return false
+        	else
+            	Stack.pop()
+if Stack.IsEmpty() then
+	return true
+else
+	return false         	 
+
+Time Complexity: 
+O(n)
+For Loop
+
+Space Complexity: 
+O(n)
+Stack of max size 2n
+
+Diagram:
+
+
+
+
+6.
+(i)
+Function: non-recursiveGCD()
+Input: natural numbers a and b
+Output: GCD of a and b
+Limit <- 0
+if a < b then
+	Limit <- a
+else
+	Limit <- b
+GCD <- 0
+for i<-1 to Limit do
+	if a%i = 0 and b%i = 0 then
+    		GCD <- i
+return GCD
+
+Time Complexity:
+O(n)
+For Loop
+
+Space Complexity:
+S(n) = O(1)
+Constant # of Vars
+
+Diagram:
+
+
+
+(ii)
+Function: RecursiveHelper
+Input: a, b, current, limit, GCD
+Output: GCD of a and b
+if current > limit then
+	return GCD
+else
+	if a%current = 0 and b%current = 0 then
+    		GCD <- current
+	RecursiveHelper( a, b, current+1, limit, GCD)
+    
+Function: RecursiveGCD
+Input: natural numbers a and b
+Output: GCD of a and b
+Limit <- 0
+if a < b then
+	Limit <- a
+else
+	Limit <- b
+GCD <- 0
+return RecursiveHelper(a, b, 1, Limit, GCD)
+
+Time Complexity: O(n)
+T(n) = T(n-1) + 4
+… 
+T(n) = T(n-k) + 4k
+Assume n-k = 1
+Thus k = n-1
+T(n) = T(1) + 4n - 4
+T(n) = 4n - 3
+T(n) = O(n)
+
+Space Complexity: 
+O(n)
+n amount of function calls
+
+Diagram:
+
+7.
+(i)
+Function: pow()
+Input: x, power
+Output: x^power
+if power = 0 then
+	return 1
+elif power = 0 then
+	return x
+else
+	result <- x
+	for i<-2 to power do
+    		result = result * x
+	return result
+
+Function: EVALUATEPOLY(A[0 ... n], x)
+Input: A[0 . . . n], x              	//Assuming array's first index is 0 not 1
+Output: univariate polynomial P(x)
+total <- 0
+for i<-n to 0                       	//decreasing for loop
+	if i = 0 then
+    		total <- total + A[0]
+	else
+    		total <- total + (A[i] * pow(x, i))
+return total
+
+Time Complexity:
+O(n^2)
+Pow function - O(n)
+Thus EVALUATEPOLY = O(n*n) = O(n^2)
+
+Space Complexity:
+O(1)
+Constant # of Vars
+
+Diagram:
+
+(ii)
+Function: pow
+Input: x, power
+Output: x^power
+if power = 0 then
+	return 1
+else
+	result <- pow(x, power/2 rounded down)
+	result <- result * result
+	if power is odd then
+    		result <- result * x
+	return result
+
+Function: EVALUATEPOLY(A[0 ... n], x)
+Input: A[0 . . . n], x              	//Assuming array's first index is 0 not 1
+Output: univariate polynomial P(x)
+total <- 0
+for i<-n to 0                       	//decreasing for loop
+	if i = 0 then
+    		total <- total + A[i]
+	else
+    		total <- total + (A[i] * pow(x, i))  	 
+return total
+
+Time complexity: O(nlogn)
+pow: O(logn)
+EVALUATEPOLY: 
+O(n * logn) = O(nlogn)
+
+Space complexity: 
+O(logn)
+Log(n) amount of Function Calls
+
+Diagram:
+
+
+
+
+(iii)
+Function: Recursivehelper
+Input: A[0 . . . n], x, index
+Output: univariate polynomial P(x)
+n = length of A
+if index = n then
+	return x * A[n]
+else
+	return A[index] + x * Recursivehelper(A[0 . . . n], x, index+1)
+
+Function: EVALUATEPOLY
+Input: A[0 . . . n], x
+Output: univariate polynomial P(x)
+total <- (Recursivehelper(A[0 . . . n], x, 0))
+return total
+
+Time Complexity:
+Recursivehelper:
+T(n) = T(1) + 1
+T(n) = T(2) + 2
+… 
+T(n) = T(n) + n
+T(n) = n + 1
+T(n) = O(n)
+
+Thus EVALUATEPOLY T(n) = O(n)
+
+Space Complexity: 
+O(n)
+n amount of Function Calls
+
+Diagram:
+
+
+
+8.
+(i)
+Function: PAIRSUM
+Input: A[1 . . . n], k
+Output: P[i, j]     	//(i,j)
+for i<-1 to n-1 do
+	for j<-i to n do
+    		if A[i]+A[j] = k then
+        		P[1] <- i
+        			P[2] <- j
+        			return P[1, 2]
+return P[]			// return empty, no match
+
+Time Complexity: 
+O(n^2)
+For loop * for loop
+
+Space Complexity:
+O(1)
+Array of size 2 + Constant # of Vars
+
+Diagram:
+
+
+(ii)
+Function: PAIRSUM
+Input: A[1 . . . n], k
+Output: P[i, j]     	//(i,j)
+for i<-1 to n-1 do
+	find <- k-A[i]
+	index <- -1              	// index of key to be found
+	if find!= A[i] then
+    		index <- BINARYSEARCH(A[1 ... n], find)
+	if index != -1 then
+    		p[1] = i
+    		p[2] = index
+    		return p[1, 2]
+return P[]
+
+
+Time Complexity: 
+O(nlogn)
+For loop * Binary Search
+
+Space Complexity: 
+O(1)
+Array of size 2 + Constant # of Vars
+
+Diagram:
+
+
+(iii)
+Function: PAIRSUM
+Input: A[1 ... n], k
+Output: P[i, j]
+left <- 1
+right <- n
+while left < right do
+	sum <- A[left] + A[right]
+	if sum = k then
+    		P[1] = left
+    		p[2] = right
+    		return P[1, 2]
+	elif sum > k then
+    		left <- left + 1
+	else
+    		right <- right - 1
+return P[]
+
+Time Complexity: 
+O(n)
+For loop
+
+Space Complexity: 
+O(1)
+Array of size 2 + Constant # of Vars
+
+Diagram:
+
+
+9.
+(i)
+Function: COUNTFREQUENCY
+Input: A[1 ... n], k
+Output: Frequency of k
+freq <- 0
+for i<-1 to n do
+	if A[i] = k then
+    		freq <- freq + 1
+return freq
+
+Time Complexity: 
+O(n)
+For Loop
+
+Space Complexity: 
+O(1)
+Constant # of Vars
+
+Diagram:
+
+
+(ii)
+Function: findFirst
+Input: A[1 ... n], k
+Output: index of first instance of k, -1 if k does not exist
+l <- 1
+h <- n
+while l<h do
+	mid <- (l+h)/2
+	if (mid = 0 or k>A[mid-1]) and A[mid] = k then  	//Return only if first instance of k
+    		return mid
+	if k>A[mid] then
+    		l <- mid+1
+	else
+    		h <- mid-1
+return -1
+
+Function: findLast
+Input: A[1 ... n], k
+Output: index of last instance of k, -1 if k does not exist
+l <- 1
+h <- n
+while l<h do
+	mid <- (l+h)/2
+	if (mid = n or k<A[mid+1]) and A[mid] = k then  	//Return only if last instance of k
+    		return mid
+	if k<A[mid] then
+    		h <- mid-1
+	else
+    		l <- mid+1
+
+Function: COUNTFREQUENCY
+Input: A[1 ... n], k
+Output: Frequency of k, -1 if k does not exist
+first <- findFirst(A[1 ... n], k)
+last <- findLast(A[1 ... n], k)
+if first != -1 then
+	return (first-last)+1
+else
+	return -1
+
+
+
+
+
+Time Complexity: 
+findFirst - O(logn)
+findLast - O(logn)
+O(logn + logn) = O(logn)
+
+Space Complexity: 
+O(1)
+Constant # of Vars
+
+Diagram:
+
+
+
+
+
+10.
+(i)
+Stack Implementation with Queues:
+----------------------
+Queue1, Queue 2: Queues
+Top: integer 			// size, empty stack = 0
+
+Function InitializeStack():
+	Top <- 0 		// Initialize empty stack
+
+Procedure Push(item):
+	if Queue2.isEmpty then
+    		Queue1.enqueue(item)
+	else
+    		Queue2.enqueue(item)
+	Top <- Top + 1
+
+Procedure Pop():
+	if IsEmpty() then
+    		return "Error No Items to Pop"
+	else
+    		if Queue2.IsEmpty then
+        			for i <- 1 to Top-1 do
+            			add <- Queue1.dequeue
+            			Queue2.enqueue( add )
+        			Queue1.dequeue
+    		else
+        			for i <- 1 to Top-1 do
+            			add <- Queue2.dequeue
+            			Queue1.enqueue( add )
+        			Queue2.dequeue
+    		Top <- Top - 1
+
+Function: IsEmpty
+Input: none
+Output: boolean
+	return Top = 0                  	// return True if stack is empty
+----------------------
+
+
+
+
+
+
+Diagram:
+
+
+(ii)
+Queue Implementation with Stacks:
+----------------------
+Stack1, Stack2: Stacks
+Top: integer 			// size of Queue, empty Queue = 0
+
+Function: InitializeQueue():
+	Top <- 0 		// Initialize empty Queue
+
+Function enqueue(item):
+	Stack1.push(item)
+	Top <- Top + 1
+
+Function dequeue():
+	if IsEmpty() then
+    		return "Error No Items to Dequeue"
+	elif Statck2.isEmpty then
+    		for i <- 1 to Top-1 do
+        			add <- Stack1.pop
+        			Stack2.push( add )
+    		Stack1.pop
+
+    		Top <- Top - 1
+    		for i<- 1 to Top do
+        			add <- Stack2.pop
+        			Stack1.push( add )
+    		Stack2.pop
+	else
+    		for i <- 1 to n-1 do
+        			add <- Stack2.pop
+        			Stack1.push( add )
+    		Stack2.pop
+    	
+Top <- Top - 1
+    		for i<- 1 to Top do
+        			add <- Stack1.pop
+        			Stack2.push( add )
+    		Stack1.pop
+
+Function: isEmpty()
+Input: none
+Output: boolean
+	return Top = 0                  	// return True if Queue is empty
+----------------------
+Diagram:
+
