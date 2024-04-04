@@ -1,13 +1,13 @@
-public class BinarySearchTree <T extends Comparable<T>> {
+public class BinarySearchTree {
     private int nodeCount = 0;
 
     private Node root = null;
 
-    private class Node {
-        T data;
+    public class Node {
+        int data;
         Node left, right;
 
-        public Node (Node left, Node right, T elem){
+        public Node (Node left, Node right, int elem){
             this.data = elem;
             this.left = left;
             this.right = right;
@@ -23,7 +23,7 @@ public class BinarySearchTree <T extends Comparable<T>> {
     }
 
     //Unique elements only
-    public boolean add(T elem){
+    public boolean add(int elem){
         
         if(contains(elem)){
             return false;
@@ -36,11 +36,11 @@ public class BinarySearchTree <T extends Comparable<T>> {
         }
     }
 
-    private Node add(Node node, T elem){
+    private Node add(Node node, int elem){
         if (node == null){
             node = new Node (null, null, elem);
         } else {
-            if (elem.compareTo(node.data)< 0) {
+            if (elem - node.data< 0) {
                 node.left = add(node.left, elem);
             } else{
                 node.right = add(node.right, elem);
@@ -49,7 +49,7 @@ public class BinarySearchTree <T extends Comparable<T>> {
         return node;
     }
 
-    public boolean remove(T elem){
+    public boolean remove(int elem){
 
         //in tree, proceed to remove
         if (contains(elem)){
@@ -60,11 +60,11 @@ public class BinarySearchTree <T extends Comparable<T>> {
         return false;
     }
 
-    private Node remove(Node node, T elem){
+    private Node remove(Node node, int elem){
         
         if(node == null) return null;
         
-        int cmp = elem.compareTo(node.data);
+        int cmp = elem - node.data;
 
         if(cmp < 0) {
             node.left = remove(node.left, elem);
@@ -77,7 +77,6 @@ public class BinarySearchTree <T extends Comparable<T>> {
             if(node.left == null){
                 Node rightChild = node.right;
 
-                node.data = null;
                 node = null;
 
                 return rightChild;
@@ -86,7 +85,6 @@ public class BinarySearchTree <T extends Comparable<T>> {
             else if(node.right == null){
                 Node leftChild = node.left;
 
-                node.data = null;
                 node = null;
 
                 return leftChild;   
@@ -112,17 +110,17 @@ public class BinarySearchTree <T extends Comparable<T>> {
         return current;
     }
 
-    public boolean contains(T elem){
+    public boolean contains(int elem){
         return contains(root, elem);
     }
 
     //recursive
-    private boolean contains(Node node, T elem){
+    private boolean contains(Node node, int elem){
         
         //base case
         if (node == null) return false;
         
-        int cmp = elem.compareTo(node.data);
+        int cmp = elem-node.data;
 
         if(cmp < 0) return contains(node.left, elem);
 
@@ -138,5 +136,30 @@ public class BinarySearchTree <T extends Comparable<T>> {
     private int height(Node node) {
         if (node == null) return 0;
         return Math.max( height(node.left), height(node.right)) + 1;
+    }
+
+    public void PrintRanges(int a, int b){
+        PrintRange(root, a, b);
+    }
+    public void PrintRange(Node curr, int a, int b){
+        if (curr == null) return;
+        if (curr.left != null && curr.left.data - a >= 0)
+            PrintRange(curr.left, a, b);
+        
+        System.out.println(curr.data);
+
+        if (curr.right != null && curr.right.data - b <= 0)
+            PrintRange(curr.right, a, b);
+
+    }
+
+    public static void main(String Args[]){
+        BinarySearchTree a = new BinarySearchTree();
+        a.add(8);
+        a.add(5);
+        a.add(3);
+        a.add(7);
+        a.add(9); 
+        a.PrintRanges(4, 8);
     }
 }
