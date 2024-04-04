@@ -1,0 +1,257 @@
+2.
+a.
+Function: CountNodes
+Input: Node curr
+Output: int total nodes
+
+total <- 0
+
+if curr = null then            //base case
+    return total
+
+total <- total + 1
+total <- total + countNodes(curr.left)
+total <- total + countNodes(curr.right)
+return total
+
+Time Complexity:
+T(n) = T(n-1) + 1
+T(n) = T(n-2) + 2(1)
+T(n) = T(n-3) + 3(1)
+...
+T(n) = T(n-k) + k(1)
+Assume n-k = 1
+Thus k = n - 1
+T(n) = T(1) + (n-1)(1)
+T(n) = n 
+T(n) = O(n)
+
+Space Complexity:
+O(n) for n amount of function calls
+
+Diagram:
+
+
+b.
+Function: CountLeafNodes
+Input: Node curr
+Output: int total leaf countNodes
+
+total <- 0
+leftnode <- curr.left
+rightnode <- curr.right
+
+if leftnode = null and rightnode = null then          //base case, at leaf node
+    return 1
+
+total <- total + CountLeafNodes(curr.left)
+total <- total + CountLeafNodes(curr.right)
+return total
+
+Time Complexity:
+T(n) = T(n-1) +1
+… 
+T(n) = 1 + 1 + 1 + .. + 1
+T(n) = O(n)
+O(n)
+
+
+Space Complexity:
+O(n) for n amount of function calls
+
+Diagram:
+
+c.
+Function: CountNonLeafNodes
+Input: Node curr
+Output: int total nonleaf nodes
+
+total <- 0
+leftnode <- curr.left
+rightnode <- curr.right
+
+if leftnode = null and rightnode = null then          //base case, at leaf node
+    return 0
+
+total <- total + 1
+total <- total + CountNonLeafNodes(curr.left)
+total <- total + CountNonLeafNodes(curr.right)
+return total
+
+Time Complexity:
+T(n) = T(n-1) + 1
+… 
+T(n) = 1 + 1 + 1 + .. + 1
+T(n) = O(n)
+O(n)
+
+
+Space Complexity:
+O(n) for n amount of function calls
+
+Diagram:
+
+
+d.
+Function: max
+Input: int a, int b
+Output: the higher number between a and b
+
+if a > b then 
+    return a
+return b
+
+Function: findHeight
+Input: Node curr
+Output: int height of tree
+
+height <- 0
+
+if curr = null              //base case
+    return 0;
+
+rightHeight <- findHeight(curr.right)
+leftHeight <- findHeight(curr.left)
+
+height <- height + max(rightHeight, leftHeight)
+
+return height
+
+e.
+Plan: 
+//the largest value on left tree must be smaller than current
+//the smallest value on right tree must be larger than current
+//repeat throughout the tree
+
+Function: IsBinarySerachTree
+Input: Node curr
+Output: boolean, BST?
+
+if curr = null then                 //base case
+    return true
+check <- curr.data
+right <- curr.right
+left <- curr.left
+if right != null and left!= null then
+    if FindMax(left) >= check and FindMin(right) <= check then
+        return false
+
+return IsBinarySerachTree(left) and IsBinarySerachTree(right)
+
+Function: FindMax
+Input: Node curr
+Output: int max value in tree
+
+if curr = null then 
+    return 0
+
+largest <- curr.data
+checkL <- FindMax(curr.left)
+checkR <- FindMax(curr.right)
+
+largest <- max(largest, checkL)
+largest <- max(largest, checkR)
+return largest
+
+Function: max
+Input: int a, int b
+Output: the higher number between a and b
+
+if a > b then 
+    return a
+return b
+
+Function: FindMin
+Input: Node curr
+Output: int min value in tree
+
+if curr = null then 
+    return 0
+
+smallest <- curr.data
+checkL <- FindMin(curr.left)
+checkR <- FindMin(curr.right)
+
+smallest <- min(smallest, checkL)
+smallest <- min(smallest, checkR)
+return smallest
+
+Function: min
+Input: int a, int b
+Output: the lower number between a and b
+
+if a < b then 
+    return a
+return b
+
+Time Complexity:
+T(n) = T(n-1) + n           //n from the combined total of FindMax and FindMin
+T(n) = T(n-2) + n-1 + n
+T(n) = T(n-3) + n-2 + n-1 + n
+… 
+T(n) = T(n-k) + n-(k-1) + n-(k-2) + ... + n-2 + n-1 + n
+Assume n-k = 1
+Thus k = n - 1
+T(n) = T(1) + 2 + 3 + ... + n-2 + n-1 + n
+T(n) = 1 + 2 + 3 + ... + n-2 + n-1 + n
+T(n) = (n(n-1))/2
+T(n) = O(n^2)
+O(n^2)
+
+
+Space Complexity:
+Max memory used can only reach a n amount in the worst case (through FindMin or FindMax).
+After Function call of FindMin/FindMax, memory is reusable
+Function call of IsBinarySerachTree adds 1 to memory stack, but FindMin and FincMax memory usage is also lowered.
+Thus memory usage can only be O(n)
+O(n)
+
+Diagram:
+
+f.
+Function: IsBinarySerachTree
+Input: A[1...n]
+Output: boolean, BST?
+
+//Plan: Non-recursive In-order traversal
+//In order Traversal should yield numbers in order in a BST
+//If the numbers are not in order, then not BST
+//Since index starts at one, left child is current*2, right child is current*2 + 1
+//null is used to represent emptyness but can be swapped out for a specific integer for the same effect
+
+current <- 1
+trackPrev <- negative infinity
+
+while current <= n do
+
+    while current*2 < n and A[current*2] != null(empty) do                //Get left most node
+        current <- current*2
+    
+    if A[current] != null(empty) then                                   //if current value not empty
+        if trackPrev > A[current] then                                  //return false if prev > current value
+            return false 
+        
+        trackPrev <- A[current]
+        A[current] <- null (make empty)
+
+    if A[current*2 + 1] < n and A[current*2 + 1] is not empty then      //Move to right Node
+        current <- current*2 + 1
+    
+    else                                                                //Move to Parent Node
+
+        if current%2 = 0 then                                      //Was Left child
+            current <- current / 2
+        else if current = 1 then                                   //Reached Root return true
+            return true
+        else                                                       //Was Right child
+            current <- (current-1) / 2
+
+return true                         //should not need
+
+Time Complexity:
+O(n) since the algorithm is a traversal
+
+Space Complexity:
+O(1) since only constant Vars and the given Array are used
+
+Diagram:
