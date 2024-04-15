@@ -127,15 +127,31 @@ Function: IsBinarySerachTree
 Input: Node curr
 Output: boolean, BST?
 
+if curr = null then
+    return true
+maxLeft <- 0
+minRight <- 0
+
+if curr.right != null then
+    minRight = FindMin(curr.right)
+if curr.left!= null then
+    maxLeft = FindMax(curr.left)
+
+return IsBinarySerachTreeHelper(curr.left) and IsBinarySerachTreeHelper(curr.right)
+
+Function: IsBinarySerachTreeHelper              //Helper used to avoid having to call findmin/findmax each in recurrance
+Input: Node curr, maxLeft, minRight
+Output: boolean, BST?
+
 if curr = null then                 //base case
     return true
 check <- curr.data
 right <- curr.right
 left <- curr.left
-if right != null and left!= null then
-    if FindMax(left) >= check and FindMin(right) <= check then
-        return false
 
+if right != null and left!= null then
+    if maxLeft >= check and minRight <= check then
+        return false
 return IsBinarySerachTree(left) and IsBinarySerachTree(right)
 
 Function: FindMax
@@ -185,24 +201,20 @@ if a < b then
 return b
 
 Time Complexity:
-T(n) = T(n-1) + n           //n from the combined total of FindMax and FindMin
-T(n) = T(n-2) + n-1 + n
-T(n) = T(n-3) + n-2 + n-1 + n
+T(n) + n = (T(n-1) + 1) + n           //n from the combined total of FindMax and FindMin
+T(n) + n = (T(n-2) + 1 + 1) + n
 … 
-T(n) = T(n-k) + n-(k-1) + n-(k-2) + ... + n-2 + n-1 + n
-Assume n-k = 1
-Thus k = n - 1
-T(n) = T(1) + 2 + 3 + ... + n-2 + n-1 + n
-T(n) = 1 + 2 + 3 + ... + n-2 + n-1 + n
-T(n) = (n(n-1))/2
-T(n) = O(n^2)
-O(n^2)
+T(n) + n = T(1) + 2 + 3 + ... + n-2 + n-1 + n
+T(n) + n = n + n
+T(n) + n = 2n
+T(n) = O(n)
+O(n)
 
 
 Space Complexity:
 Max memory used can only reach a n amount in the worst case (through FindMin or FindMax).
 After Function call of FindMin/FindMax, memory is reusable
-Function call of IsBinarySerachTree adds 1 to memory stack, but FindMin and FincMax memory usage is also lowered.
+Function call of IsBinarySerachTree adds 1 to memory stack, and can only ever reach n
 Thus memory usage can only be O(n)
 O(n)
 
@@ -255,3 +267,60 @@ Space Complexity:
 O(1) since only constant Vars and the given Array are used
 
 Diagram:
+
+3
+
+a.
+Function: FindMinimumNode
+Input: Node curr of a BST
+Output: Node with the lowest key
+
+//Given the nature of a BST, the min value would be all the way to the left
+
+if curr.left = null then                //Base Case
+    return curr
+
+FindMinimumNode(curr.left)
+
+Time Complexity:
+O(n)
+n for worst case, if all nodes are located on the left
+
+Space Complexity:
+O(n)
+n for n possible amount of Function Calls in the worst case
+
+Diagram:
+
+b.
+Function: PrintElementsInRange
+Input: Node curr, range [a, b]
+Output: nothing
+
+//plan:
+//In order Traversal with specific requirements
+//a is lowest so go left until before left.data < A
+//b is highest, whenever going right check if right.data > b
+
+if curr = null then                     //Implicit Base Case
+    return
+
+if curr.left != null and curr.left.data > a then
+    PrintElementsInRange(curr.left)
+
+print(curr.data)
+
+if curr.right != null and curr.right.data < b then
+    PrintElementsInRange(curr.right)
+
+// void type, auto return at end
+
+Time Complexity:
+O(n)
+Worst case visiting every node for a total of n
+
+Space Complexity:
+O(n)
+Worst case n amount of funciton calls
+
+Diagram: 
