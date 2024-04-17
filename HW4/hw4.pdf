@@ -1,0 +1,103 @@
+1.
+
+a.
+Preorder: 50, 17, 9, 14, 12, 23, 19, 76, 54, 72, 67
+Inorder: 9, 12, 14, 17, 19, 23, 50, 54, 67, 72, 76
+Postorder: 12, 14, 9, 19, 23, 17, 67, 72, 54, 76, 50
+Levelorder: 50, 17, 76, 9, 23, 54, 14, 19, 72, 12, 67
+
+b.
+[insert tree]
+
+c.
+[insert tree]
+
+2.
+
+a.
+[insert tree]
+
+b.
+Function: IsMinHeap
+Input: A[1 ... n]
+Output: boolean, does the array represent a min-heap?
+// Plan: 
+// children's value must be less than current node
+// recurse down, if above violated, return false
+return IsMinHeapHelper(A[1 ... n], 1)
+
+Function: IsMinHeapHelper
+Input: A[1 ... n], index
+Output: boolean, is the heap a min heap?
+leftIndex <- index*2
+rightIndex <- index*2 + 1
+if leftIndex > n and rightIndex > n then         //base case              
+    return true                     
+
+if leftIndex < n and A[leftIndex] < A[index] then
+    return false
+if rightIndex < n and A[rightIndex] < A[index] then
+    return false
+
+return IsMinHeapHelper(A[1 ... n], index*2) and IsMinHeapHelper(A[1 ... n], index*2 + 1)
+
+
+c.
+Function: ComputeLargestElements
+Input: A[1 ... n], k
+Output: B[1 .. k], containing k number of largest elements
+// Plan:
+// Create Heap then return top k elements                    //MaxHeap
+if k >= n then
+    return A[1 ... n]
+
+sorted[] = new array the size of k
+for i <- 0 to n do
+    heap.insert(A[i])                                       //MaxHeap
+for i <- 0 to n do
+    sorted[i] <- heap.RemoveMax()
+return sorted[1 ... k]
+
+d.
+Function: ComputeSmallestElementsGivenKey
+Input: A[1 ... n], k
+Output: B[1 ... i], containing elements whose value is less than k
+// Plan: 
+// Check Children to see if they are <= k 
+// Implement through recursion
+Arraylist B creation
+helperFunction(A[1 ... n], k, 1, Arraylist B) 
+return Arraylist B
+
+Function: helperFunction
+Input: A[1 ... n], k, index, Arraylist B
+Output: Nothing, will modify Arraylist B
+if A[index] > k then
+    return
+B.add(A[index])
+helperFunction(A[1 ... n], k, index*2, Arraylist B)                 //left child
+helperFunction(A[1 ... n], k, index*2 + 1, Arraylist B)             //right child
+
+3.
+
+a.
+Function: ExistsPair
+Input: A[1 .. n], s
+Output: B[A[i], A[j]], such that i!=j and A[i]+A[j] = s
+
+b.
+(a)
+[inset hashtable]
+
+(b)
+[insert hastable]
+
+(c)
+[insert hashtable]
+
+4.
+a.
+Depth-first Search:
+
+b.
+Bredth-first Search:
