@@ -1,0 +1,62 @@
+Funciton: HeapSort
+Input: Array A[1 ... n]
+Output:
+
+
+Class: MaxHeap
+//Array implementation
+//Left Child = 2i
+//Right Child = 2i+1
+
+Array A[1 ... n]
+IndexEmpty = 1
+
+Function: BuildMaxHeap
+Input: Array A[1 ... n]
+Output: None (should have made A into a MaxHeap)
+
+Function: Delete
+Input: None
+Output: Deleted Element
+    Swap(1, IndexEmpty-1)
+    store <- A[IndexEmpty-1]
+    A[IndexEmpty-1] <- empty
+    IndexEmpty = IndexEmpty-1
+    track <- 1
+    while true do
+        left <- track*2
+        right <- track*2 + 1
+        if A[left] > A[right] do
+            greater <- left
+        else 
+            greater <- right
+        if A[track] < A[greater] then
+            Swap(track, greater)
+            track <- greater
+        else
+            return store
+    
+
+
+Function: Insert
+Input: Element e
+    A[IndexEmpty] = e
+    track = IndexEmpty
+    IndexEmpty <- IndexEmpty + 1
+    while true do
+        if track != 0 then
+            if track % 2 = 0 then
+                parent = track/2
+            else
+                parent = track-1/2
+            if A[track] > A[parent] then
+                Swap(track, parent)
+            else
+                return
+        else
+            return
+
+
+
+Funciton: Heapify
+Input:

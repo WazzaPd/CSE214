@@ -1,0 +1,17 @@
+Function: InsertionSort
+Input: Array A[1 ... n]
+Output: None
+    for i <- 2 to n do
+        if A[i-1] > A[i] do
+            index <- i
+            while index = 1 and A[index-1] > A[index] do
+                Swap(index-1, index) 
+                index <- index -1
+
+Time Complexity:
+O(n^2)
+1+2+3+...+n = n(n+1)/2
+
+Space Complexity:
+O(1)
+Constant Vars

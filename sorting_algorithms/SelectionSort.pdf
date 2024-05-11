@@ -1,12 +1,12 @@
 Function: SelectionSort
 Input: Array A[1 .. n]
 Output: None
-for i <- 1 to n do
-    minimum <- i
-    for j <- i to n do
-        if A[j] < A[minimum] then
-            minimum <- j
-    Swap(i, minimum)
+    for i <- 1 to n do
+        minimum <- i
+        for j <- i to n do
+            if A[j] < A[minimum] then
+                minimum <- j
+        Swap(i, minimum)
 
 Time Complexity:
 O(n^2)
