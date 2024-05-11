@@ -1,7 +1,23 @@
 Funciton: HeapSort
 Input: Array A[1 ... n]
-Output:
+Output: None (should have sorted A)
+    BuildMaxHeap(A)
+    for i <- n to 1 do
+        A[i] <- Heap.delete()
 
+Time Complexity:
+O(nlogn)
+n for BuildMaxHeap and logn for delete
+
+Space Complexity:
+O(n)
+n for building Heap but could have made it O(1) with a different implementation of BuildMaxHeap
+
+Function: BuildMaxHeap
+Input: Array A[1 ... n]
+Output: None (should have made A into a MaxHeap)
+    for i <- 1 to n do
+        Heap.insert(A[i])
 
 Class: MaxHeap
 //Array implementation
@@ -11,9 +27,6 @@ Class: MaxHeap
 Array A[1 ... n]
 IndexEmpty = 1
 
-Function: BuildMaxHeap
-Input: Array A[1 ... n]
-Output: None (should have made A into a MaxHeap)
 
 Function: Delete
 Input: None
@@ -55,8 +68,3 @@ Input: Element e
                 return
         else
             return
-
-
-
-Funciton: Heapify
-Input:
