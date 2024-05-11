@@ -1,0 +1,14 @@
+Function: BubbleSort
+Input: Array A[1 ... n]
+Output: None
+for i <- 1 to n do
+    for j = 1 to n-1 do
+        if A[j] < A[j]-1 then
+            swap(j, j+1)
+    
+Time Complexity:
+O(n^2)
+
+Space Complexity:
+O(1)
+since change happens in place and constant vars
